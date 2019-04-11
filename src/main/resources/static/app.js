@@ -65,13 +65,14 @@ var app = (function () {
                 //var callback = mostrarMensaje;
                 var callback = addPointToCanvas;
                 mostrar(puntoObj, callback);
-            });            
+            });
+            
             console.log('Connected: ' + frame);                 
             stompClient.subscribe('/topic/newpolygon.'+id, function (eventbody) {                
                 var poligonoObj =  JSON.parse(eventbody.body); //convertir json en obj           
                 var callback = addPolygonToCanvas;
                 mostrar(poligonoObj, callback);
-            });    
+            });
         });
     };
 
