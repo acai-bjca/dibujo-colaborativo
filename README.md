@@ -133,8 +133,6 @@ Para ver cómo manejar esto desde el manejador de eventos STOMP del servidor, re
 	git commit -m "PARTE FINAL".
 	```	
 
-
-
 ### Criterios de evaluación
 
 1. La aplicación propaga correctamente los puntos entre todas las instancias abierta de la misma, cuando hay sólo un dibujo.
@@ -142,3 +140,32 @@ Para ver cómo manejar esto desde el manejador de eventos STOMP del servidor, re
 3. La aplicación propaga correctamente el evento de creación del polígono, cuando colaborativamente se insertan cuatro puntos.
 4. La aplicación propaga correctamente el evento de creación del polígono, cuando colaborativamente se insertan cuatro puntos, con 2 o más dibujos simultáneamente.
 5. En la implementación se tuvo en cuenta la naturaleza concurrente del ejercicio. Por ejemplo, si se mantiene el conjunto de los puntos recibidos en una colección, la misma debería ser de tipo concurrente (thread-safe).
+
+### Escalamiento con balanceo de carga
+- Inicie ambas máquinas y verifique que queden con sus respectivas direcciones, y que éstas sean accesibles.
+
+	![](img/IPCONFIG-Ubutnu.png)
+	![](img/IPCONFIG-Ubutnu-Clone.png)
+
+- Realizamos ping a cada dirección desde la máquina real para verficar que son accesibles.
+
+	![](img/Ping-Ubuntu.png)
+	![](img/Ping-Ubuntu-Clone.png)
+	
+##### Parte 1
+- Al haber usado la aplicación, consulte nuevamente la consola Web de ActiveMQ, y revise qué información de tópicos se ha mostrado.
+
+	![](img/ActiveMQ.png)
+Al acceder a la aplicación con la url de cada servidor, se puede ver que en la página de ActiveMQ aparecen las conexiones y los tópicos a los que se suscribieron los clientes:
+	![](img/dibujo101.png)
+	![](img/dibujo102.png)
+	
+##### Parte 2
+- El servidor que se escogió como responsable del balanceo de carga fue 192.168.56.102, en el que se agregó un archivo de configuración de nginx
+- Desde un navegador, abra la URL de la aplicación, pero usando el puerto del balanceador de carga (8090). Verifique el funcionamiento de la aplicación.
+	![](img/nginx102.png)
+
+- Después de implementar el balanceo de carga de tipo 'least_conn' se probó nuevamente la aplicación desde diferentes navegadores.
+	![](img/nginxNavegadoresDif.png)
+	
+	
