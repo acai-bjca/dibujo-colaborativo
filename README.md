@@ -2,17 +2,13 @@
 ### Arquitecturas de Software - ARSW
 ### Laboratorio - Broker de Mensajes STOMP con WebSockets + HTML5 Canvas.
 
-
-
 - Conectarse con un botón
 - publicar con eventos de mouse
 
 var newpoint = JSON.parse(greeting.body);
                 addPointToCanvas(newpoint);
 
-
-stompClient.send("/topic/newpoint", {}, JSON.stringify(pt));  				
-
+stompClient.send("/topic/newpoint", {}, JSON.stringify(pt));
 
 Este ejercicio se basa en la documentación oficial de SprinbBoot, para el [manejo de WebSockets con STOMP](https://spring.io/guides/gs/messaging-stomp-websocket/).
 
@@ -55,7 +51,6 @@ Para esto, realice lo siguiente:
 	```bash
 	git commit -m "PARTE 1".
 	```
-
 
 ## Parte II.
 
@@ -141,6 +136,8 @@ Para ver cómo manejar esto desde el manejador de eventos STOMP del servidor, re
 4. La aplicación propaga correctamente el evento de creación del polígono, cuando colaborativamente se insertan cuatro puntos, con 2 o más dibujos simultáneamente.
 5. En la implementación se tuvo en cuenta la naturaleza concurrente del ejercicio. Por ejemplo, si se mantiene el conjunto de los puntos recibidos en una colección, la misma debería ser de tipo concurrente (thread-safe).
 
+---
+
 ### Escalamiento con balanceo de carga
 - Inicie ambas máquinas y verifique que queden con sus respectivas direcciones, y que éstas sean accesibles.
 
@@ -168,4 +165,16 @@ Al acceder a la aplicación con la url de cada servidor, se puede ver que en la 
 - Después de implementar el balanceo de carga de tipo 'least_conn' se probó nuevamente la aplicación desde diferentes navegadores.
 	![](img/nginxNavegadoresDif.png)
 	
+- Ahora podemos entrar a los logs de nginx, en este caso al archivo access.log, de manera que podamos observas cómo se envían a cada uno de las aplicaciones las peticiones.
+	![](img/LogsBalanceoCarga.png)
 	
+- Cuando apagamos la aplicación en el servidor con ip 192.168.56.102, las peticiones cuando se enviaban a este, no se respondian y se redireccionaban a la aplicación del del servidor con ip 192.168.56.101, y en general, sólo eran enviadas a este último.
+	![](img/LogsBalanceoCarga2.png)
+	
+- Para no tener "quemados" datos del host y el puerto, realizamos la configuración para que tomara los datos del archivo application.properties.
+	![](img/SinDatosQuemados1.png)
+	![](img/SinDatosQuemados2.png)
+
+
+	
+

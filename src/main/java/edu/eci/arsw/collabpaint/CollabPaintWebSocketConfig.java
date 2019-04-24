@@ -20,10 +20,10 @@ package edu.eci.arsw.collabpaint;
  *
  * @author hcadavid
  */
-import java.util.logging.Logger;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
-import org.springframework.util.AntPathMatcher;
 import org.springframework.web.socket.config.annotation.AbstractWebSocketMessageBrokerConfigurer;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
@@ -32,10 +32,16 @@ import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 @EnableWebSocketMessageBroker
 public class CollabPaintWebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
 
+    @Value("${broker.relayHost}")
+    private String relayHost;
+
+    @Value("${broker.relayPort}")
+    private int relayPort;
+
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
         //config.enableSimpleBroker("/topic");
-        config.enableStompBrokerRelay("/topic/").setRelayHost("192.168.56.101").setRelayPort(61613);
+        config.enableStompBrokerRelay("/topic/").setRelayHost(relayHost).setRelayPort(relayPort);
         config.setApplicationDestinationPrefixes("/app");
     }
 
