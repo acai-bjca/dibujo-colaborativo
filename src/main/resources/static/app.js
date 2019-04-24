@@ -48,7 +48,7 @@ var app = (function () {
         stompClient = Stomp.over(socket);
         var id = document.getElementById("id").value;
         
-        stompClient.connect({}, function (frame) {            
+        stompClient.connect("ibclalon", "ApYMPWpap35QmcBEstG-u6dxeOa_gfJh", function (frame) {            
             console.log('Connected: ' + frame);
             stompClient.subscribe('/topic/newpoint', function (eventbody) {
                 var puntoJSON =  JSON.parse(eventbody.body);
@@ -58,7 +58,7 @@ var app = (function () {
             });
         });
 
-        stompClient.connect({}, function (frame) {            
+        stompClient.connect("ibclalon", "ApYMPWpap35QmcBEstG-u6dxeOa_gfJh", function (frame) {            
             console.log('Connected: ' + frame);               
             stompClient.subscribe('/topic/newpoint.'+id, function (eventbody) {
                 var puntoObj =  JSON.parse(eventbody.body); //convertir json en obj                
@@ -73,7 +73,9 @@ var app = (function () {
                 var callback = addPolygonToCanvas;
                 mostrar(poligonoObj, callback);
             });
-        });
+        }, function(error){
+            console.info("error"+error);
+        }, "ibclalon");
     };
 
     function mostrar(puntoObj, callback){

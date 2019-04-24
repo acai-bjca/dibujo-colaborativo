@@ -175,6 +175,11 @@ Al acceder a la aplicación con la url de cada servidor, se puede ver que en la 
 	![](img/SinDatosQuemados1.png)
 	![](img/SinDatosQuemados2.png)
 
-
+##### Parte 3
+- Luego de haber cambiado de activeMQ a CloudAMQP como broker de mensajes, podemos ver en el administrador los topics creados.
+	![](img/CloudAMQP1.png)CloudAMQP2.png
+	![](img/CloudAMQP2.png)
+	
+- 
 	
 
